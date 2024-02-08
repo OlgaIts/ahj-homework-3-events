@@ -1,7 +1,8 @@
+/* eslint-disable no-plusplus */
 export default class Score {
   constructor() {
-    this.hitElement = document.querySelector(".hit");
-    this.missElement = document.querySelector(".miss");
+    this.hitElement = document.querySelector('.hit');
+    this.missElement = document.querySelector('.miss');
   }
 
   init() {

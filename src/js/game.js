@@ -1,13 +1,13 @@
-import Field from "./field";
-import Cursor from "./cursor";
-import Monster from "./monster";
-import Score from "./score";
-import Popup from "./popup";
+import Field from './field';
+import Cursor from './cursor';
+import Monster from './monster';
+import Score from './score';
+import Popup from './popup';
 
 export default class Game {
   init() {
     this.score = new Score();
-    this.field = new Field(document.querySelector(".field"));
+    this.field = new Field(document.querySelector('.field'));
     this.popup = new Popup();
     Cursor.init();
     this.registerEvents();
