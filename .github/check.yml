@@ -1,42 +1,36 @@
 name: check
 on: [push]
+     
 jobs:
-  init:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     strategy:
       matrix:
         node-version: [ 18.x ]
-   
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-     
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Starting Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      
-      - name: install modules
+
+      - name: Install dependencies
         run: yarn install
-     
+
+      - name: Run tests
+        run: yarn run test  
+      
       - name: lint code
         run: yarn run lint
-      
-      - name: build project
-        run: yarn run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: 'dist'
+      - name: Build
+        run: yarn run build 
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build 
