@@ -3,8 +3,8 @@ export default class Cursor {
     this.cursor = document.querySelector('.cursor');
 
     window.addEventListener('mousemove', (e) => {
-      this.cursor.style.top = `${e.pageY} 'px'`;
-      this.cursor.style.left = `${e.pageX} 'px'`;
+      this.cursor.style.top = `${e.pageY}px`;
+      this.cursor.style.left = `${e.pageX}px`;
     });
 
     window.addEventListener('mousedown', () => {
