@@ -20,11 +20,6 @@ export default class Game {
         this.score.increaseHit();
         Monster.hitMonster(this.currentField);
         this.field.removeClick();
-      } else {
-        this.score.increaseMiss();
-        if (this.score.getMiss() === 5) {
-          this.endGame();
-        }
       }
     });
 
@@ -37,15 +32,23 @@ export default class Game {
 
   playGame() {
     this.score.init();
-    this.timer = setInterval(() => {
-      this.field.clearHoles();
-      this.currentField = this.field.getHole();
-      Monster.showMonster(this.currentField);
-    }, 1250);
+    setTimeout(function run() {
+      if (this.currentField && Monster.findMonster(this.currentField)) {
+        this.score.increaseMiss();
+      }
+      if (this.score.getMiss() === 5) {
+        this.endGame();
+      }
+      if (this.score.getMiss() !== 5) {
+        this.field.clearHoles();
+        this.currentField = this.field.getHole();
+        Monster.showMonster(this.currentField);
+        setTimeout(run.bind(this), 1250);
+      }
+    }.bind(this), 1250);
   }
 
   endGame() {
-    clearInterval(this.timer);
     this.popup.showPopup();
     this.field.clearHoles();
   }
